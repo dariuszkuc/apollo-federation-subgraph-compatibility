@@ -10,7 +10,6 @@ on:
 jobs:
   compatibility:
     runs-on: ubuntu-latest
-    steps:
-      - uses: ./.github/workflows/test-subgraph.yml
-        with:
-          library: "absinthe-federation"
+    - uses: ./.github/workflows/test-subgraph.yml
+      with:
+        library: "absinthe-federation"
