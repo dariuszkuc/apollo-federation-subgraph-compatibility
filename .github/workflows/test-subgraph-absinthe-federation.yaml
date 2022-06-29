@@ -1,0 +1,16 @@
+name: Absinthe Federation Test
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'implementations/absinthe-federation/**'
+
+jobs:
+  compatibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/test-subgraph.yml
+        with:
+          library: "absinthe-federation"

@@ -1,0 +1,16 @@
+name: Federation JVM Test
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'implementations/federation-jvm/**'
+
+jobs:
+  compatibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/test-subgraph.yml
+        with:
+          library: "federation-jvm"
