@@ -9,7 +9,6 @@ on:
 
 jobs:
   compatibility:
-    runs-on: ubuntu-latest
     uses: ./.github/workflows/test-subgraph.yml
-      with:
-        library: "federation-jvm"
+    with:
+      library: "federation-jvm"
