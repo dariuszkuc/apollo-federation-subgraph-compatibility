@@ -8,7 +8,7 @@ on:
       - 'implementations/federation-jvm/**'
 
 jobs:
-  compatibility:
+  subgraph:
     uses: ./.github/workflows/test-subgraph.yaml
     with:
       library: "federation-jvm"
