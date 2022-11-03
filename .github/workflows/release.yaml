@@ -22,7 +22,7 @@ jobs:
       #Setup project and package extension
       - run: npm install
       - run: npm run setup
-      - run: npm run test
+      - run: npm run test apollo-server
         env:
           DEBUG: docker,test
           API_KEY_APPSYNC: ${{ secrets.API_KEY_APPSYNC }}
@@ -30,7 +30,7 @@ jobs:
           URL_STEPZEN: ${{ secrets.URL_STEPZEN }}
 
       - name: results summary
-        run: cat ./build/results.md > $GITHUB_STEP_SUMMARY
+        run: cat ./reports/results.md > $GITHUB_STEP_SUMMARY
 
       - id: create-version
         uses: actions/github-script@v4
@@ -65,7 +65,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./build.results.md
+          asset_path: ./reports/results.md
           asset_name: apollo-federation-subgraph-compatibility-results-${{ env.VERSION }}.md
           asset_content_type: text/markdown
 
