@@ -1,4 +1,4 @@
-import { readdirSync } from "fs";
+import { existsSync, mkdirSync, readdirSync } from "fs";
 import { readFile, writeFile } from "fs/promises";
 import { resolve } from "path";
 import execa from "execa";
@@ -127,7 +127,12 @@ async function main() {
     }
   }
 
+  const reportsDir = resolve(__dirname, "..", "reports")
+  if (!existsSync(reportsDir)) {
+    mkdirSync(reportsDir)
+  }
   generateMarkdown(results);
+
 
   await writeFile(
     resolve(__dirname, "..", "results.json"),

@@ -33,7 +33,7 @@ export function generateMarkdown(results: TestResult[]) {
   markdownFile.endLanguageTable();
 
   writeFileSync(
-    resolve(__dirname, "..", "..", "results.md"),
+    resolve(__dirname, "..", "..", "reports/results.md"),
     markdownFile.toString(),
     "utf-8"
   );
