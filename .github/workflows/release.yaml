@@ -84,8 +84,6 @@ jobs:
           asset_name: apollo-federation-subgraph-compatibility-results-${{ env.VERSION }}.md
           asset_content_type: text/markdown
 
-      - name: Prepare GH pages
-
   build-pages:
     timeout-minutes: 10
     runs-on: ubuntu-latest
