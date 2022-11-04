@@ -22,7 +22,7 @@ jobs:
       #Setup project and package extension
       - run: npm install
       - run: npm run setup
-      - run: npm run test apollo-server federation-jvm graphql-go
+      - run: npm run test
         env:
           DEBUG: docker,test
           API_KEY_APPSYNC: ${{ secrets.API_KEY_APPSYNC }}
