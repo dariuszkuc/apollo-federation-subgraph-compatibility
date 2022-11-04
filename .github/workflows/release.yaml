@@ -47,6 +47,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: download results
         uses: actions/download-artifact@v3
+        with:
+          name: results.md
       - id: create-version
         uses: actions/github-script@v4
         with:
@@ -92,6 +94,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: download results
         uses: actions/download-artifact@v3
+        with:
+          name: results.md
       - name: create docs
         run: |
           mkdir docs
