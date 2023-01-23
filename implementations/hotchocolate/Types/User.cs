@@ -12,6 +12,7 @@ public class User
         Name = name;
     }
 
+    [Requires("totalProductsCreated yearsOfEmployment")]
     public int? GetAverageProductsCreatedPerYear()
     {
         if (TotalProductsCreated != null && LengthOfEmployment != null)
@@ -54,13 +55,11 @@ public class User
         User? user = repository.Users.FirstOrDefault(u => u.Email.Equals(email));
         if (user != null)
         {
-            Console.WriteLine("user entity, total products created = {0}", totalProductsCreated);
             if (totalProductsCreated != null)
             {
                 user.TotalProductsCreated = totalProductsCreated;
             }
 
-            Console.WriteLine("user entity, years of employment = {0}", yearsOfEmployment);
             if (yearsOfEmployment != null)
             {
                 user.LengthOfEmployment = yearsOfEmployment;
