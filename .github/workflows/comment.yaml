@@ -45,52 +45,17 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Download Artifacts
-        uses: actions/github-script@v6
-        id: download_artifacts
-        with:
-          script: |
-            var artifacts = await github.rest.actions.listWorkflowRunArtifacts({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               run_id: ${{ github.event.workflow_run.id }},
-            });
-            var prArtifact = artifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "pr"
-            })[0];
-            var downloadPrArtifact = await github.rest.actions.downloadArtifact({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               artifact_id: prArtifact.id,
-               archive_format: 'zip',
-            });
-            var fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/pr.zip', Buffer.from(downloadPrArtifact.data));
-
-            var compatibilityResult = artifacts.data.artifacts.filter((artifact) => {
-              return artifact.name.startsWith("results") && artifact.name.endsWith(".md")
-            })[0];
-            var downloadResultsArtifact = await github.rest.actions.downloadArtifact({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               artifact_id: compatibilityResult.id,
-               archive_format: 'zip',
-            });
-            var fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/results.zip', Buffer.from(downloadResultsArtifact.data));
-
-            core.setOutput('results_file_name', compatibilityResult.name);
-      - name: Unpack artifacts
-        run: |
-          unzip pr.zip
-          unzip results.zip
+        uses: actions/download-artifact@v3
+      - name: Standardize artifact names
+        run: mv results*/results*.md results.md
       - name: Comment on PR
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
-            var issue_number = Number(fs.readFileSync('./pr_info'));
-            const results = fs.readFileSync('${{ steps.download_artifacts.outputs.results_file_name }}', 'utf-8');
+            var issue_number = Number(fs.readFileSync('.pr/pr_info'));
+            const results = fs.readFileSync('results.md', 'utf-8');
             const commentBody = `## Apollo Federation Subgraph Compatibility Results\n${results}\n`;
             github.rest.issues.createComment({
               issue_number: issue_number,
