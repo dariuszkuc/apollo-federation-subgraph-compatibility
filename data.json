@@ -1,0 +1,15 @@
+{
+  "data": {
+    "repository": {
+      "description": "Libraries for running GraphQL in Kotlin",
+      "stargazerCount": 1566,
+      "releases": {
+        "nodes": [
+          {
+            "publishedAt": "2023-02-16T21:50:24Z"
+          }
+        ]
+      }
+    }
+  }
+}

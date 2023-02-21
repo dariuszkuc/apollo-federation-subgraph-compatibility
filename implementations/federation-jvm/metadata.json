@@ -1,5 +1,7 @@
 {
   "fullName": "Federation JVM",
   "language": "Java / Kotlin",
-  "documentation": "https://github.com/apollographql/federation-jvm"
+  "documentation": "https://github.com/apollographql/federation-jvm",
+  "repositoryName": "federation-jvm",
+  "repositoryOwner": "apollographql"
 }
